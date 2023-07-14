@@ -4,30 +4,45 @@ import HomePage from "../pages/Home/HomePage";
 import SignUp from "../pages/Authentication/SignUp";
 import { Login } from "../pages/Authentication/Login";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import AllBooks from "../pages/Books/AllBooks";
+import { BookDetails } from "../pages/Books/BookDetails";
+import AddNewBook from "../pages/Books/AddNewBook";
 
-const routes= createBrowserRouter([
+const routes = createBrowserRouter([
   {
     path: "/",
-    element : <App/>,
+    element: <App />,
     children: [
       {
         index: true,
-        element : <HomePage/>
+        element: <HomePage />,
       },
       {
         path: "/login",
-        element: <Login/>
+        element: <Login />,
       },
       {
         path: "/signup",
-        element: <SignUp/>
+        element: <SignUp />,
       },
-      
-    ]
-  },{
+      {
+        path: "/all-books",
+        element: <AllBooks />,
+      },
+      {
+        path: "/book-details/:id",
+        element: <BookDetails />,
+      },
+      {
+        path: "/add-new-book",
+        element: <AddNewBook />,
+      },
+    ],
+  },
+  {
     path: "*",
-    element: <ErrorPage/>
-  }
-])
+    element: <ErrorPage />,
+  },
+]);
 
 export default routes;
