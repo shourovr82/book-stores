@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div>
+    <div className="pt-10">
       <div className="border border-gray-600">
         <section className="py-10 bg-gray-50 sm:pt-16 lg:pt-24 mt-10">
           <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">

@@ -1,8 +1,10 @@
 import poddoja from "../../assets/pddoja.jpg";
-import { IoShare } from "react-icons/io5";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { PiHeartBold } from "react-icons/pi";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { BiEditAlt } from "react-icons/bi";
 import Reviews from "../../components/Books/Reviews";
+import { Link } from "react-router-dom";
 
 export const BookDetails = () => {
   return (
@@ -46,14 +48,23 @@ export const BookDetails = () => {
                     </h2>
                   </div>
                   <div className="flex gap-4 items-center ">
-                    <button
-                      className="border-2 border-black rounded-md p-2 hover:bg-black hover:text-white duration-300 ease-in-out "
+                    <Link
+                      to="/edit-book/lkjdakl"
+                      className="flex justify-between items-center gap-2 border-2 border-green-800 rounded-md p-2 hover:bg-green-800 text-green-800 hover:text-white duration-300 ease-in-out "
                       type="button"
                     >
-                      <IoShare size="20" />
+                      Edit
+                      <BiEditAlt size="20" />
+                    </Link>
+                    <button
+                      className="border-2 flex justify-between items-center gap-2 border-red-800 rounded-md p-2 hover:bg-red-800 text-red-800 hover:text-white duration-300 ease-in-out "
+                      type="button"
+                    >
+                      Delete
+                      <RiDeleteBin6Line size="20" />
                     </button>
                     <button
-                      className="border-2 border-black rounded-md p-2 hover:bg-black hover:text-white duration-300 ease-in-out"
+                      className="border-2  border-black rounded-md p-2.5 hover:bg-black hover:text-white duration-300 ease-in-out"
                       type="button"
                     >
                       <PiHeartBold size="20" />

@@ -112,28 +112,40 @@ export default function Navbar() {
               aria-orientation="vertical"
               aria-labelledby="menu-button"
             >
-              <div className="py-1" role="none">
-                <a
-                  href="#"
+              <div className="" role="none">
+                <Link
+                  onClick={() => setIsOpen(false)}
+                  to="/add-new-book"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                   role="menuitem"
                 >
-                  Option 1
-                </a>
-                <a
-                  href="#"
+                  Add New Book
+                </Link>
+                <Link
+                  onClick={() => setIsOpen(false)}
+                  to="/signup"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                   role="menuitem"
                 >
-                  Option 2
-                </a>
-                <a
-                  href="#"
+                  Sign Up
+                </Link>
+                <Link
+                  onClick={() => setIsOpen(false)}
+                  to="/login"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                   role="menuitem"
                 >
-                  Option 3
-                </a>
+                  Sign In
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                >
+                  Logout
+                </button>
               </div>
             </div>
           )}
