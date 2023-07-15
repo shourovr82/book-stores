@@ -1,6 +1,30 @@
-import BooksCard from "../../components/Books/BooksCard";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import BookCard from "../../components/Books/BookCard";
+import { IBook } from "../../interfaces/book.interfaces";
+import { useGetBooksQuery } from "../../redux/features/books/booksSlice";
 
 export default function HomePage() {
+  const { data, isLoading, isError } = useGetBooksQuery(undefined);
+
+  let gettingBooks;
+
+  if (isLoading) {
+    gettingBooks = (
+      <p className="items-center text-2xl font-extrabold">Loading...</p>
+    );
+  }
+
+  if (!isError && !isLoading && data?.data?.length === 0) {
+    <div className="items-center text-2xl font-extrabold">No Books Found</div>;
+  }
+
+  if (!isLoading && data?.data?.length > 0) {
+    gettingBooks = data?.data
+      ?.slice(0, 10)
+      ?.map((book: IBook) => <BookCard book={book} key={book._id} />);
+  }
   return (
     <div className="bg-white">
       <section className="bg-[#FCF8F1] bg-opacity-30 py-10 sm:py-16 lg:py-24">
@@ -99,8 +123,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* another section */}
-      <BooksCard />
+      {/* boooks section */}
+      <div className="col-span-9 bg-gray-200 shadow-book-details-card rounded-md p-3 py-10">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-5 gap-5 ">{gettingBooks}</div>
+        </div>
+      </div>
     </div>
   );
 }
