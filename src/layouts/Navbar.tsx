@@ -83,14 +83,13 @@ export default function Navbar() {
               Resources{" "}
             </a>
 
-            <a
-              href="#"
-              title=""
+            <Link
+              to="/my-books"
+              title="My books"
               className="text-base text-black transition-all duration-200 hover:text-opacity-80"
             >
-              {" "}
-              Pricing{" "}
-            </a>
+              My Books
+            </Link>
           </div>
 
           {/* menu button */}

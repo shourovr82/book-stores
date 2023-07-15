@@ -7,6 +7,8 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AllBooks from "../pages/Books/AllBooks";
 import { BookDetails } from "../pages/Books/BookDetails";
 import AddNewBook from "../pages/Books/AddNewBook";
+import MyBooks from "../pages/MyBooks/MyBooks";
+import SingleBookTable from "../pages/MyBooks/SingleBookTable";
 
 const routes = createBrowserRouter([
   {
@@ -40,6 +42,24 @@ const routes = createBrowserRouter([
       {
         path: "/edit-book/:id",
         element: <AddNewBook />,
+      },
+      {
+        path: "/my-books",
+        element: <MyBooks />,
+        children: [
+          {
+            index: true,
+            element: <SingleBookTable />,
+          },
+          {
+            path: "/my-books/wishlist",
+            element: <SingleBookTable />,
+          },
+          {
+            path: "/my-books/reading",
+            element: <SingleBookTable />,
+          },
+        ],
       },
     ],
   },
