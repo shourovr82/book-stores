@@ -10,7 +10,6 @@ const MyBooks = () => {
       <div className="container mx-auto">
         <div className="md:grid grid-cols-12 gap-8">
           <MyBooksBar />
-
           <div className=" col-span-9 bg-gray-200 shadow-book-details-card p-5 ">
             <div>
               <Outlet />

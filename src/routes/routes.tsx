@@ -9,6 +9,7 @@ import { BookDetails } from "../pages/Books/BookDetails";
 import AddNewBook from "../pages/Books/AddNewBook";
 import MyBooks from "../pages/MyBooks/MyBooks";
 import SingleBookTable from "../pages/MyBooks/SingleBookTable";
+import MyAllBooks from "../pages/MyBooks/MyAllBooks";
 
 const routes = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ const routes = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <SingleBookTable />,
+            element: <MyAllBooks />,
           },
           {
             path: "/my-books/wishlist",

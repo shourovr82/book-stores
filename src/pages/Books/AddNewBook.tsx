@@ -3,23 +3,39 @@ import { IBook } from "../../interfaces/book.interfaces";
 import { useAddNewBookMutation } from "../../redux/features/books/booksSlice";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/hook";
 
 export default function AddNewBook() {
   const [addNewBook, { isError, isLoading, isSuccess, error }] =
     useAddNewBookMutation();
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IBook>();
+
+  const { user } = useAppSelector((state) => state?.auth || {});
+
+  type IAddNewBook = {
+    title: string;
+    author: string;
+    genre: string;
+    publicationYear: string;
+  };
+
+  const { register, handleSubmit } = useForm<IAddNewBook>();
 
   const onSubmit = (data: IBook) => {
-    addNewBook(data);
+    const book = {
+      title: data.title,
+      author: data.author,
+      genre: data.genre,
+      image: data?.image,
+      publication: data.publicationDate,
+      email: user?.email,
+      name: user?.name,
+      userId: user?._id,
+    };
+    addNewBook(book);
     toast.success("Successfully added new Book");
     navigate("/all-books");
   };
-
   return (
     <div>
       <section className="py-3 bg-gray-100 ">

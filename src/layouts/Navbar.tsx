@@ -1,12 +1,22 @@
 import { useState } from "react";
 import { TfiMenu } from "react-icons/tfi";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { userLoggedOut } from "../redux/features/user/authSlice";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAppSelector((state) => state?.auth || {});
+  const dispatch = useAppDispatch();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(userLoggedOut());
+    localStorage.removeItem("auth");
+    setIsOpen(false);
   };
 
   return (
@@ -91,9 +101,16 @@ export default function Navbar() {
               My Books
             </Link>
           </div>
+          <div>
+            {user?.fullName && (
+              <p className="text-xs font-semibold text-slate-600">
+                Welcome {user?.fullName}
+              </p>
+            )}
+          </div>
 
           {/* menu button */}
-          <div>
+          <div className="">
             <button
               type="button"
               className="inline-flex justify-center w-full p-3 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-full hover:bg-gray-200 transition-all duration-300 active:scale-90"
@@ -120,31 +137,36 @@ export default function Navbar() {
                 >
                   Add New Book
                 </Link>
-                <Link
-                  onClick={() => setIsOpen(false)}
-                  to="/signup"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  role="menuitem"
-                >
-                  Sign Up
-                </Link>
-                <Link
-                  onClick={() => setIsOpen(false)}
-                  to="/login"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  role="menuitem"
-                >
-                  Sign In
-                </Link>
-
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  role="menuitem"
-                >
-                  Logout
-                </button>
+                {!user && (
+                  <>
+                    <Link
+                      onClick={() => setIsOpen(false)}
+                      to="/signup"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      Sign Up
+                    </Link>
+                    <Link
+                      onClick={() => setIsOpen(false)}
+                      to="/login"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      Sign In
+                    </Link>
+                  </>
+                )}
+                {user && (
+                  <button
+                    type="button"
+                    onClick={() => handleLogout()}
+                    className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    role="menuitem"
+                  >
+                    Logout
+                  </button>
+                )}
               </div>
             </div>
           )}

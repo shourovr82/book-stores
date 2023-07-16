@@ -10,7 +10,7 @@ import { useGetBooksQuery } from "../../redux/features/books/booksSlice";
 
 export default function AllBooks() {
   const { data, isLoading, isError } = useGetBooksQuery(undefined, {
-    pollingInterval: 2000,
+    pollingInterval: 10000,
   });
 
   let gettingBooks;

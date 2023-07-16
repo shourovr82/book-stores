@@ -2,24 +2,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { api } from "../../api/apiSlice";
+const token = localStorage.getItem("auth") as string;
+const parseToken = JSON.parse(token);
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getBooks: builder.query({ query: () => "/books" }),
+    getBooks: builder.query({ query: () => "/books", providesTags: ["books"] }),
     singleBook: builder.query({
       query: (id) => `/books/${id}`,
-    }),
-    postReviews: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/reviews/${id}`,
-        method: "POST",
-        body: data,
-      }),
-      invalidatesTags: ["reviews"],
-    }),
-    getReviews: builder.query({
-      query: (id) => `/reviews/${id}`,
-      providesTags: ["reviews"],
     }),
     addNewBook: builder.mutation({
       query: (data) => ({
@@ -29,8 +19,20 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["books"],
     }),
+    getMyBook: builder.query({
+      query: () => ({
+        url: "/books/my-books",
+        headers: {
+          authorization: parseToken?.accessToken,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetBooksQuery, useSingleBookQuery, useAddNewBookMutation } =
-  bookApi;
+export const {
+  useGetBooksQuery,
+  useSingleBookQuery,
+  useAddNewBookMutation,
+  useGetMyBookQuery,
+} = bookApi;
