@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Link } from "react-router-dom";
+import { IProps } from "../../interfaces/book.interfaces";
 
-export default function BookCard({ book }: any) {
+export default function BookCard({ book }: IProps) {
   const { title, author, genre, _id } = book;
 
   return (

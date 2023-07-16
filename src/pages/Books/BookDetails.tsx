@@ -1,12 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import poddoja from "../../assets/pddoja.jpg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PiHeartBold } from "react-icons/pi";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import Reviews from "../../components/Books/Reviews";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useSingleBookQuery } from "../../redux/features/books/booksSlice";
+import { IBook } from "../../interfaces/book.interfaces";
 
 export const BookDetails = () => {
+  const { id } = useParams();
+  const { data, isLoading, isError } = useSingleBookQuery(id);
+
+  const details: IBook = data?.data;
+  // const { title, author, genre } = details;
   return (
     <div>
       <div className=" py-10 px-4 sm:px-6 lg:px-8">
@@ -16,20 +25,20 @@ export const BookDetails = () => {
               <div className="md:flex-shrink-0">
                 <img
                   className="w-[80%] object-center h-[90%] rounded-2xl "
-                  src={poddoja}
+                  src={details?.image ? details?.image : poddoja}
                   alt="Product"
                 />
               </div>
               <div className="p-6 space-y-5 w-full">
                 <div>
                   <h2 className="text-4xl font-bold text-gray-800 mb-2">
-                    Product Title
+                    {details?.title}
                   </h2>
                   <p className="text-gray-600 font-semibold text-sm mb-4">
-                    Author : Shafinur Islam
+                    Author : {details?.author}
                   </p>
                   <p className="text-gray-600 font-semibold text-sm mb-4">
-                    Genre : Romantic
+                    Genre : {details?.genre}
                   </p>
                 </div>
 
@@ -86,7 +95,7 @@ export const BookDetails = () => {
                 <div className=" w-2/4">
                   <div className="flex  justify-between">
                     <h4 className="text-gray-400 font-semibold">Publisher :</h4>
-                    <h4 className="font-semibold">Shafinur Islam</h4>
+                    <h4 className="font-semibold">{details?.author}</h4>
                   </div>
                   <div className="flex justify-between">
                     <h4 className="text-gray-400 font-semibold">
