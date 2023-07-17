@@ -7,12 +7,6 @@ import { useRegistrationMutation } from "../../redux/features/user/authApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { toast } from "react-hot-toast";
 
-interface SignInFormInputs {
-  fullName: string;
-  email: string;
-  password: string;
-}
-
 export default function SignUp() {
   const { accessToken, user } = useAppSelector((state) => state?.auth || {});
   const navigate = useNavigate();
@@ -22,29 +16,21 @@ export default function SignUp() {
     { isError, isLoading, isSuccess, error: responseError },
   ] = useRegistrationMutation();
   //
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IBook>();
+  const { register, handleSubmit } = useForm<FormData>();
 
-  const onSubmit = async (data: SignInFormInputs) => {
+  const onSubmit = async (data: FormData) => {
     registration(data);
 
     navigate("/login");
     toast.success("Registration successfully. You can Login Now 😀");
   };
 
-  //
-  console.log(user);
   useEffect(() => {
     if (responseError?.data) {
       console.log(responseError?.data);
-      // toast.error(responseError?.data);
     }
     if (user?.email && accessToken) {
       navigate("/");
-      toast.success("Successfully Logged In 😁");
     }
   }, [responseError, navigate, user, dispatch, accessToken]);
   return (

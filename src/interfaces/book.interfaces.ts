@@ -3,7 +3,7 @@ export type IBook = {
   title: string;
   author: string;
   genre: string;
-  publicationDate: Date;
+  publicationDate: string;
   price?: number;
   image?: string;
   description?: string;
@@ -14,3 +14,11 @@ export type IBook = {
 export interface IProps {
   book: IBook;
 }
+
+export type IReview = {
+  _id?: string;
+  review: string;
+  email: string;
+  fullName: string;
+  userId: string;
+};

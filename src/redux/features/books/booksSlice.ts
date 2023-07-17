@@ -17,7 +17,7 @@ const bookApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["books"],
+      invalidatesTags: ["books", "myBooks"],
     }),
     getMyBook: builder.query({
       query: () => ({
@@ -26,6 +26,7 @@ const bookApi = api.injectEndpoints({
           authorization: parseToken?.accessToken,
         },
       }),
+      providesTags: ["myBooks"],
     }),
   }),
 });

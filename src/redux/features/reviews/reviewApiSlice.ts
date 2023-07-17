@@ -11,7 +11,7 @@ const reviewApiSlice = api.injectEndpoints({
       invalidatesTags: ["reviews"],
     }),
     getReviews: builder.query({
-      query: (id) => `/reviews/${id}`,
+      query: (bookId) => `/reviews/${bookId}`,
       providesTags: ["reviews"],
     }),
   }),

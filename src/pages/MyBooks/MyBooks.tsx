@@ -3,10 +3,8 @@ import MyBooksBar from "./MyBooksBar";
 
 const MyBooks = () => {
   return (
-    <section className="px-[5px] lg:px-0 py-5 font-inter mt-[60px] bg-[#f6f6f7]">
-      <p className="font-extrabold text-4xl mt-20 text-center mb-10">
-        My Book List
-      </p>
+    <section className="px-[5px] lg:px-0 py-5 font-inter bg-[#f6f6f7]">
+      <p className="font-extrabold text-4xl  text-center mb-10">My Book List</p>
       <div className="container mx-auto">
         <div className="md:grid grid-cols-12 gap-8">
           <MyBooksBar />

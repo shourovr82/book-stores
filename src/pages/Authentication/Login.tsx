@@ -6,10 +6,6 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { toast } from "react-hot-toast";
 
-interface LoginFormInputs {
-  email: string;
-  password: string;
-}
 export const Login = () => {
   const [login, { isError, isLoading, isSuccess, error: responseError }] =
     useLoginMutation();
@@ -18,25 +14,20 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>();
+  const { register, handleSubmit } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
-    return await login(data);
+  const handleLogin = (data: FormData) => {
+    login(data);
   };
 
   //
   useEffect(() => {
     if (responseError?.data) {
       console.log(responseError?.data);
-      // toast.error(responseError?.data);
+      toast.error(responseError?.data?.message);
     }
     if (user?.email && accessToken) {
       navigate("/");
-      toast.success("Successfully Logged In 😁");
     }
   }, [responseError, navigate, user, dispatch, accessToken]);
   return (
@@ -58,7 +49,7 @@ export const Login = () => {
               </Link>
             </p>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+            <form onSubmit={handleSubmit(handleLogin)} className="mt-8">
               <div className="space-y-5">
                 <div>
                   <label

@@ -16,7 +16,7 @@ export default function AddNewBook() {
     title: string;
     author: string;
     genre: string;
-    publicationYear: string;
+    publicationDate: string;
   };
 
   const { register, handleSubmit } = useForm<IAddNewBook>();
@@ -27,7 +27,7 @@ export default function AddNewBook() {
       author: data.author,
       genre: data.genre,
       image: data?.image,
-      publication: data.publicationDate,
+      publicationDate: data.publicationDate,
       email: user?.email,
       name: user?.name,
       userId: user?._id,
