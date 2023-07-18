@@ -11,14 +11,11 @@ export default function AddNewBook() {
 
   const { user } = useAppSelector((state) => state?.auth || {});
 
-  // type IAddNewBook = {
-  //   title: string;
-  //   author: string;
-  //   genre: string;
-  //   publicationDate: string;
-  // };
-
-  const { register, handleSubmit } = useForm<IBook>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IBook>();
 
   const onSubmit = (data: IBook) => {
     const book = {
@@ -53,7 +50,10 @@ export default function AddNewBook() {
                         htmlFor=""
                         className="text-base font-medium text-gray-900"
                       >
-                        Book Title
+                        Book Title{" "}
+                        <span className="ml-2 text-red-800 font-semibold text-sm">
+                          {errors?.title?.message}
+                        </span>
                       </label>
                       <div className="mt-2.5 relative">
                         <input
@@ -73,7 +73,10 @@ export default function AddNewBook() {
                         htmlFor=""
                         className="text-base font-medium text-gray-900"
                       >
-                        Author
+                        Author{" "}
+                        <span className="ml-2 text-red-800 font-semibold text-sm">
+                          {errors?.author?.message}
+                        </span>
                       </label>
                       <div className="mt-2.5 relative">
                         <input

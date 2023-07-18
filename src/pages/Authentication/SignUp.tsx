@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useRegistrationMutation } from "../../redux/features/user/authApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -16,6 +16,8 @@ export default function SignUp() {
   const { accessToken, user } = useAppSelector((state) => state?.auth || {});
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { state } = useLocation() || {};
+
   const [registration, { isError, error: responseError }] =
     useRegistrationMutation();
   //
@@ -33,9 +35,9 @@ export default function SignUp() {
       toast.error("Something went wrong !!");
     }
     if (user?.email && accessToken) {
-      navigate("/");
+      navigate(state?.path || "/");
     }
-  }, [responseError, navigate, user, dispatch, accessToken, isError]);
+  }, [responseError, navigate, user, dispatch, accessToken, isError, state]);
   return (
     <section className="bg-white">
       <div className="flex  justify-center ">

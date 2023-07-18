@@ -10,7 +10,7 @@ export const Login = () => {
   const [login, { isError, error: responseError }] = useLoginMutation();
   const { user, accessToken } = useAppSelector((state) => state?.auth || {});
   const dispatch = useAppDispatch();
-  const { state } = useLocation();
+  const { state } = useLocation() || {};
 
   const navigate = useNavigate();
 

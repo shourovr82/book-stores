@@ -42,6 +42,11 @@ export default function MyAllBooks() {
             </th>
           </tr>
         </thead>
+        {!books?.length && (
+          <p className="p-10 text-red-800 font-semibold text-xl">
+            No book found !
+          </p>
+        )}
         <tbody className="bg-white divide-y divide-gray-200">
           {books?.length &&
             books?.map((book: IBook) => (
