@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/features/user/authApi";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -10,6 +10,7 @@ export const Login = () => {
   const [login, { isError, error: responseError }] = useLoginMutation();
   const { user, accessToken } = useAppSelector((state) => state?.auth || {});
   const dispatch = useAppDispatch();
+  const { state } = useLocation();
 
   const navigate = useNavigate();
 
@@ -24,15 +25,14 @@ export const Login = () => {
     login(data);
   };
 
-  //
   useEffect(() => {
     if (isError) {
       toast.error("Something went wrong !!");
     }
     if (user?.email && accessToken) {
-      navigate("/");
+      navigate(state?.path || "/");
     }
-  }, [responseError, navigate, user, dispatch, accessToken, isError]);
+  }, [responseError, navigate, user, dispatch, accessToken, isError, state]);
   return (
     <section className="bg-white py-10">
       <div className="flex justify-center ">

@@ -22,3 +22,12 @@ export type IReview = {
   fullName: string;
   userId: string;
 };
+
+export type IAuthUser = {
+  accessToken: string;
+  user: {
+    _id?: string;
+    email: string;
+    fullName: string;
+  };
+};

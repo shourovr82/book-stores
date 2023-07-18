@@ -10,6 +10,7 @@ import AddNewBook from "../pages/Books/AddNewBook";
 import MyBooks from "../pages/MyBooks/MyBooks";
 import SingleBookTable from "../pages/MyBooks/SingleBookTable";
 import MyAllBooks from "../pages/MyBooks/MyAllBooks";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -34,15 +35,27 @@ const routes = createBrowserRouter([
       },
       {
         path: "/book-details/:id",
-        element: <BookDetails />,
+        element: (
+          <PrivateRoute>
+            <BookDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-new-book",
-        element: <AddNewBook />,
+        element: (
+          <PrivateRoute>
+            <AddNewBook />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/edit-book/:id",
-        element: <AddNewBook />,
+        element: (
+          <PrivateRoute>
+            <AddNewBook />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-books",
@@ -50,15 +63,27 @@ const routes = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MyAllBooks />,
+            element: (
+              <PrivateRoute>
+                <MyAllBooks />
+              </PrivateRoute>
+            ),
           },
           {
             path: "/my-books/wishlist",
-            element: <SingleBookTable />,
+            element: (
+              <PrivateRoute>
+                <SingleBookTable />
+              </PrivateRoute>
+            ),
           },
           {
             path: "/my-books/reading",
-            element: <SingleBookTable />,
+            element: (
+              <PrivateRoute>
+                <SingleBookTable />
+              </PrivateRoute>
+            ),
           },
         ],
       },
