@@ -50,7 +50,7 @@ export default function AddNewBook() {
                         htmlFor=""
                         className="text-base font-medium text-gray-900"
                       >
-                        Book Title{" "}
+                        Book Title
                         <span className="ml-2 text-red-800 font-semibold text-sm">
                           {errors?.title?.message}
                         </span>
@@ -73,7 +73,7 @@ export default function AddNewBook() {
                         htmlFor=""
                         className="text-base font-medium text-gray-900"
                       >
-                        Author{" "}
+                        Author
                         <span className="ml-2 text-red-800 font-semibold text-sm">
                           {errors?.author?.message}
                         </span>
@@ -97,12 +97,15 @@ export default function AddNewBook() {
                         className="text-base font-medium text-gray-900"
                       >
                         Genre
+                        <span className="ml-2 text-red-800 font-semibold text-sm">
+                          {errors?.genre?.message}
+                        </span>
                       </label>
                       <div className="mt-2.5 relative">
                         <input
                           type="text"
                           {...register("genre", {
-                            required: "Email is required",
+                            required: "Genre is required",
                           })}
                           name="genre"
                           id="genre"
@@ -117,6 +120,9 @@ export default function AddNewBook() {
                         className="text-base font-medium text-gray-900"
                       >
                         Publication Date
+                        <span className="ml-2 text-red-800 font-semibold text-sm">
+                          {errors?.publicationDate?.message}
+                        </span>
                       </label>
                       <div className="mt-2.5 relative">
                         <input
@@ -130,7 +136,7 @@ export default function AddNewBook() {
                           className="block w-full px-4 py-4 shadow-inner shadow-gray-400 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md  caret-blue-600"
                         />
                       </div>
-                    </div>{" "}
+                    </div>
                     <div className="sm:col-span-2">
                       <button
                         type="submit"
@@ -139,7 +145,7 @@ export default function AddNewBook() {
                         Add new Book
                       </button>
                     </div>
-                  </div>{" "}
+                  </div>
                 </form>
               </div>
             </div>

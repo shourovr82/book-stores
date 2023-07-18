@@ -3,6 +3,7 @@ import { TfiMenu } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { userLoggedOut } from "../redux/features/user/authSlice";
+import { toast } from "react-hot-toast";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function Navbar() {
   const handleLogout = () => {
     dispatch(userLoggedOut());
     localStorage.removeItem("auth");
+    toast.success("Logged Out Successfully !!");
     setIsOpen(false);
   };
 
@@ -33,40 +35,6 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* <button
-            type="button"
-            className="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100"
-          >
-            <svg
-              className="block w-6 h-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 8h16M4 16h16"
-              ></path>
-            </svg>
-
-            <svg
-              className="hidden w-6 h-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button> */}
           <div className="flex justify-center  items-center ">
             <div className="hidden lg:flex lg:items-center lg:justify-center lg:space-x-10">
               <Link
@@ -125,12 +93,12 @@ export default function Navbar() {
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
               >
-                <div className="" role="none">
+                <div>
                   {user && (
                     <Link
                       onClick={() => setIsOpen(false)}
                       to="/add-new-book"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      className="block px-4 rounded py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem"
                     >
                       Add New Book
@@ -165,6 +133,27 @@ export default function Navbar() {
                     >
                       Logout
                     </button>
+                  )}
+
+                  <Link
+                    onClick={() => setIsOpen(false)}
+                    to="/all-books"
+                    className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    role="menuitem"
+                  >
+                    All Books
+                  </Link>
+
+                  {user && (
+                    <Link
+                      onClick={() => setIsOpen(false)}
+                      to="/my-books"
+                      title="My books"
+                      className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded"
+                      role="menuitem"
+                    >
+                      My Books
+                    </Link>
                   )}
                 </div>
               </div>

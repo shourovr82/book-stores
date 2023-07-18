@@ -102,7 +102,7 @@ export default function AllBooks() {
                         type="text"
                         name="genre"
                         onChange={(e) => handleFilter(e)}
-                        placeholder="Search"
+                        placeholder="Search by Genre"
                         className="w-full border-black shadow-inner border rounded-md shadow-gray-300 py-2 px-3 focus:outline-none focus:ring-1 "
                       />
                     </div>
@@ -119,7 +119,7 @@ export default function AllBooks() {
                       type="text"
                       name="publicationDate"
                       onChange={(e) => handleFilter(e)}
-                      placeholder="Search"
+                      placeholder="Search buy Publication Year"
                       className="w-full border-black shadow-inner border rounded-md shadow-gray-300 py-2 px-3 focus:outline-none focus:ring-1 "
                     />
                   </div>
