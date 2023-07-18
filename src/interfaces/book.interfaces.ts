@@ -11,6 +11,18 @@ export type IBook = {
   name: string;
   userId: string;
 };
+
+interface IUser {
+  _id: string;
+  email: string;
+  fullName: string;
+}
+
+export type IWishlist = {
+  user: IUser;
+  book: IBook;
+};
+
 export interface IProps {
   book: IBook;
 }

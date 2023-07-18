@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import poddoja from "../../assets/pddoja.jpg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PiHeartBold } from "react-icons/pi";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineLoading, AiOutlineStar } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import Reviews from "../../components/Books/Reviews";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -15,6 +15,7 @@ import {
 import { IBook } from "../../interfaces/book.interfaces";
 import { useAppSelector } from "../../redux/hook";
 import { toast } from "react-hot-toast";
+import { useAddToMyWishlistMutation } from "../../redux/features/wishlist/wishlistApiSlice";
 
 export const BookDetails = () => {
   const { id } = useParams();
@@ -23,6 +24,15 @@ export const BookDetails = () => {
   const { user } = useAppSelector((state) => state.auth);
   const [deleteBook, { isLoading, isError, isSuccess }] =
     useDeleteBookMutation();
+  const [
+    addToMyWishlist,
+    {
+      isError: wishError,
+      isLoading: wishLoading,
+      error: wishErrors,
+      isSuccess: wishSuccess,
+    },
+  ] = useAddToMyWishlistMutation();
   const details: IBook = data?.data;
   const isUserOwner = user?._id === details?.userId;
 
@@ -30,12 +40,31 @@ export const BookDetails = () => {
     deleteBook({ bookId: id });
   };
 
+  const handleAddToMyWishlist = () => {
+    addToMyWishlist({ user: user?._id, book: id });
+  };
+
   useEffect(() => {
     if (!isLoading && !isError && isSuccess) {
       navigate("/all-books");
       toast.success("Successfully Deleted Book");
     }
-  }, [isError, isLoading, isSuccess, navigate]);
+    if (wishErrors && wishError && !wishLoading) {
+      toast.error("You have already added this book on your wishlists !!");
+    }
+    if (!wishErrors && !wishError && !wishLoading && wishSuccess) {
+      toast.success("Book Successfully added to wishlist  !!");
+    }
+  }, [
+    isError,
+    isLoading,
+    isSuccess,
+    navigate,
+    wishLoading,
+    wishError,
+    wishErrors,
+    wishSuccess,
+  ]);
 
   return (
     <div>
@@ -99,10 +128,14 @@ export const BookDetails = () => {
                       </>
                     )}
                     <button
+                      onClick={() => handleAddToMyWishlist()}
                       className="border-2  border-black rounded-md p-2.5 hover:bg-black hover:text-white duration-300 ease-in-out"
                       type="button"
                     >
-                      <PiHeartBold size="20" />
+                      {!wishLoading && <PiHeartBold size="20" />}
+                      {wishLoading && (
+                        <AiOutlineLoading className="animate-spin" size="20" />
+                      )}
                     </button>
                   </div>
                 </div>

@@ -7,15 +7,11 @@ export default function MyAllBooks() {
 
   return (
     <section>
+      {" "}
+      <p className="font-extrabold text-3xl  text-center mb-5">My Book List</p>
       <table className="w-full divide-y divide-gray-200">
         <thead className="bg-gray-100 text-red-500 font-extrabold">
           <tr>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-            >
-              Image
-            </th>
             <th
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -51,13 +47,6 @@ export default function MyAllBooks() {
           {books?.length &&
             books?.map((book: IBook) => (
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <img
-                    src="book-image.jpg"
-                    alt="Book Image"
-                    className="h-16 w-16 rounded-full"
-                  />
-                </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
                     {book?.title}

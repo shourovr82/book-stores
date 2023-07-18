@@ -6,6 +6,13 @@ export const api = createApi({
     // baseUrl: "https://book-store-backend-shourovr82.vercel.app/api/v1",
     baseUrl: "http://localhost:7000/api/v1",
   }),
-  tagTypes: ["reviews", "books", "reviews", "myBooks", "singleBook"],
+  tagTypes: [
+    "reviews",
+    "books",
+    "reviews",
+    "myBooks",
+    "singleBook",
+    "wishlist",
+  ],
   endpoints: () => ({}),
 });
