@@ -30,6 +30,7 @@ export const Login = () => {
       toast.error("Something went wrong !!");
     }
     if (user?.email && accessToken) {
+      toast.success("Successfully Logged in !!");
       navigate(state?.path || "/");
     }
   }, [responseError, navigate, user, dispatch, accessToken, isError, state]);

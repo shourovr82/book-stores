@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { api } from "../../api/apiSlice";
 import { userLoggedIn } from "./authSlice";
 
@@ -37,7 +38,7 @@ export const authApi = api.injectEndpoints({
           );
         } catch (err) {
           //
-          console.log(err);
+          toast.error("Something went wrong!!");
         }
       },
     }),

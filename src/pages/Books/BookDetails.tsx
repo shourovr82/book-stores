@@ -1,26 +1,42 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { useEffect } from "react";
 import poddoja from "../../assets/pddoja.jpg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PiHeartBold } from "react-icons/pi";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import Reviews from "../../components/Books/Reviews";
-import { Link, useParams } from "react-router-dom";
-import { useSingleBookQuery } from "../../redux/features/books/booksSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  useDeleteBookMutation,
+  useSingleBookQuery,
+} from "../../redux/features/books/booksSlice";
 import { IBook } from "../../interfaces/book.interfaces";
 import { useAppSelector } from "../../redux/hook";
+import { toast } from "react-hot-toast";
 
 export const BookDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data } = useSingleBookQuery(id);
   const { user } = useAppSelector((state) => state.auth);
-
+  const [deleteBook, { isLoading, isError, isSuccess }] =
+    useDeleteBookMutation();
   const details: IBook = data?.data;
   const isUserOwner = user?._id === details?.userId;
-  console.log(details);
-  console.log(isUserOwner);
-  // const { title, author, genre } = details;
+
+  const handleDeleteBook = () => {
+    deleteBook({ bookId: id });
+  };
+
+  useEffect(() => {
+    if (!isLoading && !isError && isSuccess) {
+      navigate("/all-books");
+      toast.success("Successfully Deleted Book");
+    }
+  }, [isError, isLoading, isSuccess, navigate]);
+
   return (
     <div>
       <div className=" py-10 px-4 sm:px-6 lg:px-8">
@@ -65,7 +81,7 @@ export const BookDetails = () => {
                     {isUserOwner && (
                       <>
                         <Link
-                          to="/edit-book/lkjdakl"
+                          to={`/edit-book/${details?._id}`}
                           className="flex justify-between items-center gap-2 border-2 border-green-800 rounded-md p-2 hover:bg-green-800 text-green-800 hover:text-white duration-300 ease-in-out "
                           type="button"
                         >
@@ -73,6 +89,7 @@ export const BookDetails = () => {
                           <BiEditAlt size="20" />
                         </Link>
                         <button
+                          onClick={() => handleDeleteBook()}
                           className="border-2 flex justify-between items-center gap-2 border-red-800 rounded-md p-2 hover:bg-red-800 text-red-800 hover:text-white duration-300 ease-in-out "
                           type="button"
                         >
@@ -104,13 +121,15 @@ export const BookDetails = () => {
                 <div className=" w-2/4">
                   <div className="flex  justify-between">
                     <h4 className="text-gray-400 font-semibold">Publisher :</h4>
-                    <h4 className="font-semibold">{details?.author}</h4>
+                    <h4 className="font-semibold">{details?.name}</h4>
                   </div>
                   <div className="flex justify-between">
                     <h4 className="text-gray-400 font-semibold">
                       Date Of Publishing :
                     </h4>
-                    <h4 className="font-semibold">20/20/3000 2:20 Pm</h4>
+                    <h4 className="font-semibold">
+                      {details?.publicationDate}
+                    </h4>
                   </div>
                 </div>
 

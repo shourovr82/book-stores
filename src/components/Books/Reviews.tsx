@@ -30,6 +30,12 @@ export default function Reviews() {
                 Something Error Occurred !!!
               </p>
             )}
+
+            {!data?.data?.length && !isLoading && (
+              <p className="text-xl font-semibold text-green-800 ">
+                No Review Found !!!
+              </p>
+            )}
             {data?.data?.map((singleReview: IReview) => (
               <div
                 key={singleReview?._id}

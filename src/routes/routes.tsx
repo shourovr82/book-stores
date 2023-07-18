@@ -11,6 +11,7 @@ import MyBooks from "../pages/MyBooks/MyBooks";
 import SingleBookTable from "../pages/MyBooks/SingleBookTable";
 import MyAllBooks from "../pages/MyBooks/MyAllBooks";
 import PrivateRoute from "./PrivateRoute";
+import EditBook from "../pages/Books/EditBook";
 
 const routes = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const routes = createBrowserRouter([
         path: "/edit-book/:id",
         element: (
           <PrivateRoute>
-            <AddNewBook />,
+            <EditBook />,
           </PrivateRoute>
         ),
       },
