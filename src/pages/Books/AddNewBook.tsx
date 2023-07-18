@@ -82,7 +82,7 @@ export default function AddNewBook() {
                         <input
                           type="text"
                           {...register("author", {
-                            required: "Email is required",
+                            required: "Author is required",
                           })}
                           name="author"
                           id="author"
@@ -126,7 +126,7 @@ export default function AddNewBook() {
                       </label>
                       <div className="mt-2.5 relative">
                         <input
-                          type="number"
+                          type="text"
                           {...register("publicationDate", {
                             required: "publication Year is required",
                           })}

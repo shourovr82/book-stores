@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import poddoja from "../../assets/pddoja.jpg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PiHeartBold } from "react-icons/pi";
+import { RiHealthBookFill } from "react-icons/ri";
 import { AiFillStar, AiOutlineLoading, AiOutlineStar } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import Reviews from "../../components/Books/Reviews";
@@ -16,6 +17,7 @@ import { IBook } from "../../interfaces/book.interfaces";
 import { useAppSelector } from "../../redux/hook";
 import { toast } from "react-hot-toast";
 import { useAddToMyWishlistMutation } from "../../redux/features/wishlist/wishlistApiSlice";
+import { useAddToMyReadingListMutation } from "../../redux/features/readingList/readingLIstSlice";
 
 export const BookDetails = () => {
   const { id } = useParams();
@@ -24,6 +26,7 @@ export const BookDetails = () => {
   const { user } = useAppSelector((state) => state.auth);
   const [deleteBook, { isLoading, isError, isSuccess }] =
     useDeleteBookMutation();
+
   const [
     addToMyWishlist,
     {
@@ -33,6 +36,15 @@ export const BookDetails = () => {
       isSuccess: wishSuccess,
     },
   ] = useAddToMyWishlistMutation();
+  const [
+    addToMyReadingList,
+    {
+      isError: readError,
+      isLoading: readLoading,
+      error: readErrors,
+      isSuccess: readSuccess,
+    },
+  ] = useAddToMyReadingListMutation();
   const details: IBook = data?.data;
   const isUserOwner = user?._id === details?.userId;
 
@@ -43,6 +55,9 @@ export const BookDetails = () => {
   const handleAddToMyWishlist = () => {
     addToMyWishlist({ user: user?._id, book: id });
   };
+  const handleAddToMyReadinglist = () => {
+    addToMyReadingList({ user: user?._id, book: id });
+  };
 
   useEffect(() => {
     if (!isLoading && !isError && isSuccess) {
@@ -50,10 +65,16 @@ export const BookDetails = () => {
       toast.success("Successfully Deleted Book");
     }
     if (wishErrors && wishError && !wishLoading) {
-      toast.error("You have already added this book on your wishlists !!");
+      toast.error("You have already added this book on your wishlists ");
+    }
+    if (readErrors && readError && !readLoading) {
+      toast.error("You have already added this book on your Reading List ");
     }
     if (!wishErrors && !wishError && !wishLoading && wishSuccess) {
-      toast.success("Book Successfully added to wishlist  !!");
+      toast.success("Book Successfully added to wishlist ");
+    }
+    if (!readErrors && !readError && !readLoading && readSuccess) {
+      toast.success("Book Successfully added to Reading list");
     }
   }, [
     isError,
@@ -64,6 +85,10 @@ export const BookDetails = () => {
     wishError,
     wishErrors,
     wishSuccess,
+    readError,
+    readLoading,
+    readSuccess,
+    readErrors,
   ]);
 
   return (
@@ -137,17 +162,22 @@ export const BookDetails = () => {
                         <AiOutlineLoading className="animate-spin" size="20" />
                       )}
                     </button>
+                    <button
+                      onClick={() => handleAddToMyReadinglist()}
+                      className="border-2  border-black rounded-md p-2.5 hover:bg-black hover:text-white duration-300 ease-in-out"
+                      type="button"
+                    >
+                      {!readLoading && <RiHealthBookFill size="20" />}
+                      {readLoading && (
+                        <AiOutlineLoading className="animate-spin" size="20" />
+                      )}
+                    </button>
                   </div>
                 </div>
 
                 {/*  */}
                 <div>
-                  <p className="text-gray-400 font-thin">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Maiores dolore molestias voluptatem ullam. Fuga optio non
-                    quisquam vitae eius eveniet quam, dolore tempora, veniam
-                    recusandae illum veritatis quis ea minus!
-                  </p>
+                  <p className="text-gray-400 font-thin">book description :</p>
                 </div>
 
                 {/* date  and publisher */}

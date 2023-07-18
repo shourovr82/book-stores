@@ -13,6 +13,7 @@ import MyAllBooks from "../pages/MyBooks/MyAllBooks";
 import PrivateRoute from "./PrivateRoute";
 import EditBook from "../pages/Books/EditBook";
 import MyWishLists from "../pages/Wishlists/MyWishlists";
+import MyReadingList from "../pages/ReadingList/MyReadingList";
 
 const routes = createBrowserRouter([
   {
@@ -83,7 +84,7 @@ const routes = createBrowserRouter([
             path: "/my-books/reading",
             element: (
               <PrivateRoute>
-                <SingleBookTable />
+                <MyReadingList />
               </PrivateRoute>
             ),
           },

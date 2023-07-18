@@ -22,6 +22,11 @@ export type IWishlist = {
   user: IUser;
   book: IBook;
 };
+export type IReadingList = {
+  user: IUser;
+  book: IBook;
+  status: string;
+};
 
 export interface IProps {
   book: IBook;

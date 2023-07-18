@@ -13,6 +13,7 @@ export const api = createApi({
     "myBooks",
     "singleBook",
     "wishlist",
+    "readinglist",
   ],
   endpoints: () => ({}),
 });
