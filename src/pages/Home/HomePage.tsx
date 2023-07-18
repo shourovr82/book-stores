@@ -6,7 +6,10 @@ import { IBook } from "../../interfaces/book.interfaces";
 import { useGetBooksQuery } from "../../redux/features/books/booksSlice";
 
 export default function HomePage() {
-  const { data, isLoading, isError } = useGetBooksQuery(undefined);
+  const { data, isLoading, isError } = useGetBooksQuery({
+    filterName: "",
+    filterValue: "",
+  });
 
   let gettingBooks;
 

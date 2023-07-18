@@ -2,23 +2,26 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { IBook } from "../../interfaces/book.interfaces";
 import { useRegistrationMutation } from "../../redux/features/user/authApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { toast } from "react-hot-toast";
+
+interface IReg {
+  fullName: string;
+  email: string;
+  password: string;
+}
 
 export default function SignUp() {
   const { accessToken, user } = useAppSelector((state) => state?.auth || {});
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [
-    registration,
-    { isError, isLoading, isSuccess, error: responseError },
-  ] = useRegistrationMutation();
+  const [registration, { isError, error: responseError }] =
+    useRegistrationMutation();
   //
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<IReg>();
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: IReg) => {
     registration(data);
 
     navigate("/login");
@@ -26,13 +29,13 @@ export default function SignUp() {
   };
 
   useEffect(() => {
-    if (responseError?.data) {
-      console.log(responseError?.data);
+    if (isError) {
+      toast.error("Something went wrong !!");
     }
     if (user?.email && accessToken) {
       navigate("/");
     }
-  }, [responseError, navigate, user, dispatch, accessToken]);
+  }, [responseError, navigate, user, dispatch, accessToken, isError]);
   return (
     <section className="bg-white">
       <div className="flex  justify-center ">

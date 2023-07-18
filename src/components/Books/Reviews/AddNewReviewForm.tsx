@@ -9,9 +9,8 @@ interface IAddNewReview {
 }
 
 export default function AddNewReviewForm() {
-  const { register, handleSubmit } = useForm<IAddNewReview>();
-  const [addNewReview, { isError, isLoading, isSuccess }] =
-    useAddNewReviewMutation();
+  const { register, handleSubmit, reset } = useForm<IAddNewReview>();
+  const [addNewReview, { isError, isLoading }] = useAddNewReviewMutation();
   const { id } = useParams();
 
   const { user } = useAppSelector((state) => state.auth || {});
@@ -28,10 +27,15 @@ export default function AddNewReviewForm() {
     };
     addNewReview(newReview);
     toast.success("Successfully Added a review 🥰");
+    reset();
   };
 
   return (
     <div className=" w-2/4 rounded-md ">
+      {isLoading && <p className="text-green-800 font-semibold">Loading...</p>}
+      {isError && (
+        <p className="text-red-800 font-semibold">Something went wrong!!!</p>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <textarea
           {...register("review", { required: true })}

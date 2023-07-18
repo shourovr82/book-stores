@@ -7,29 +7,32 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { toast } from "react-hot-toast";
 
 export const Login = () => {
-  const [login, { isError, isLoading, isSuccess, error: responseError }] =
-    useLoginMutation();
+  const [login, { isError, error: responseError }] = useLoginMutation();
   const { user, accessToken } = useAppSelector((state) => state?.auth || {});
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<FormData>();
+  interface ILogin {
+    email: string;
+    password: string;
+  }
 
-  const handleLogin = (data: FormData) => {
+  const { register, handleSubmit } = useForm<ILogin>();
+
+  const handleLogin = (data: ILogin) => {
     login(data);
   };
 
   //
   useEffect(() => {
-    if (responseError?.data) {
-      console.log(responseError?.data);
-      toast.error(responseError?.data?.message);
+    if (isError) {
+      toast.error("Something went wrong !!");
     }
     if (user?.email && accessToken) {
       navigate("/");
     }
-  }, [responseError, navigate, user, dispatch, accessToken]);
+  }, [responseError, navigate, user, dispatch, accessToken, isError]);
   return (
     <section className="bg-white py-10">
       <div className="flex justify-center ">

@@ -2,9 +2,9 @@ import { IBook } from "../../interfaces/book.interfaces";
 import { useGetMyBookQuery } from "../../redux/features/books/booksSlice";
 
 export default function MyAllBooks() {
-  const { data = {}, isLoading, isError } = useGetMyBookQuery(undefined);
+  const { data = {} } = useGetMyBookQuery(undefined);
   const { data: books } = data;
-  console.log(books);
+
   return (
     <section>
       <table className="w-full divide-y divide-gray-200">

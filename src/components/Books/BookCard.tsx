@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { IProps } from "../../interfaces/book.interfaces";
 
 export default function BookCard({ book }: IProps) {
-  const { title, author, genre, _id } = book;
+  const { title, author, genre, _id, publicationDate } = book || {};
 
   return (
     <div className="w-full">
@@ -36,7 +36,7 @@ export default function BookCard({ book }: IProps) {
                 <div className="text-start mt-1">
                   <h2 className="text-sm font-semibold">Publication Date</h2>
                   <p className="text-xs text-[#abb1b8] font-semibold">
-                    15 April, 2024
+                    {publicationDate}
                   </p>
                 </div>
               </div>

@@ -7,7 +7,12 @@ const parseToken = JSON.parse(token);
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getBooks: builder.query({ query: () => "/books", providesTags: ["books"] }),
+    getBooks: builder.query({
+      query: ({ filterName, filterValue }) =>
+        `/books?${filterName}=${filterValue}`,
+      providesTags: ["books"],
+    }),
+
     singleBook: builder.query({
       query: (id) => `/books/${id}`,
     }),

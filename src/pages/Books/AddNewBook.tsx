@@ -6,20 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hook";
 
 export default function AddNewBook() {
-  const [addNewBook, { isError, isLoading, isSuccess, error }] =
-    useAddNewBookMutation();
+  const [addNewBook] = useAddNewBookMutation();
   const navigate = useNavigate();
 
   const { user } = useAppSelector((state) => state?.auth || {});
 
-  type IAddNewBook = {
-    title: string;
-    author: string;
-    genre: string;
-    publicationDate: string;
-  };
+  // type IAddNewBook = {
+  //   title: string;
+  //   author: string;
+  //   genre: string;
+  //   publicationDate: string;
+  // };
 
-  const { register, handleSubmit } = useForm<IAddNewBook>();
+  const { register, handleSubmit } = useForm<IBook>();
 
   const onSubmit = (data: IBook) => {
     const book = {
@@ -29,7 +28,7 @@ export default function AddNewBook() {
       image: data?.image,
       publicationDate: data.publicationDate,
       email: user?.email,
-      name: user?.name,
+      name: user?.fullName,
       userId: user?._id,
     };
     addNewBook(book);
@@ -118,13 +117,13 @@ export default function AddNewBook() {
                       </label>
                       <div className="mt-2.5 relative">
                         <input
-                          type="date"
+                          type="number"
                           {...register("publicationDate", {
-                            required: "publicationDate is required",
+                            required: "publication Year is required",
                           })}
                           name="publicationDate"
                           id="publicationDate"
-                          placeholder="Enter your Book Publication Date..."
+                          placeholder="Enter your Book Publication Year..."
                           className="block w-full px-4 py-4 shadow-inner shadow-gray-400 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md  caret-blue-600"
                         />
                       </div>
